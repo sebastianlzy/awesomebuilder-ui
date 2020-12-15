@@ -62,18 +62,17 @@ const getHostNames = async () => {
 
 app.get('/api/get-instance-hostname', (req, res) => {
     return getHostname().then((hostname) => {
-        res.send({hostname: `Hello From ${hostname}`});
+        res.send({hostname: hostname});
     }).catch(() => {
-        res.send({hostname: 'Did not send through'})
+        res.send({hostname: 'ip-10-192-20-128.ap-southeast-1.compute.internal'})
     })
 });
 
 app.get('/api/get-all-instance-hostnames', (req, res) => {
     return getHostNames().then((hostnames) => {
-        console.log("hostnames", hostnames)
         res.send({hostnames: hostnames});
     }).catch(() => {
-        res.send({hostnames: []})
+        res.send({hostnames: ['ip-10-192-20-128.ap-southeast-1.compute.internal', '2']})
     })
 });
 
