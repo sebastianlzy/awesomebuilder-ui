@@ -6,7 +6,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/hello', (req, res) => {
-    res.send({ express: 'Hello From Express Server' });
+    res.send({ express: 'Hello From Express Server 1' });
 });
 app.post('/api/world', (req, res) => {
     console.log(req.body);
