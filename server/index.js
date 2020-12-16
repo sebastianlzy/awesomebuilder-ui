@@ -105,7 +105,7 @@ app.get('/api/get-all-instance-hostnames', (req, res) => {
 app.get('/api/get-previous-instance-hostnames', (req, res) => {
     const getHostNames = async () => {
         return new Promise((resolve, reject) => {
-            pool.query('SELECT * from hostname limit 10', function (error, results, fields) {
+            pool.query('SELECT * from hostname limit 10 order by created_at DESC', function (error, results, fields) {
                 if (error) reject(error);
                 resolve(results)
             });
