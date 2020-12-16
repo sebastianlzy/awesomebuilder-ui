@@ -16,7 +16,7 @@ const mysql = require('mysql');
 
 const getDBConnectionParams = async () => {
     const params = {
-        SecretId: "RdsCluster",
+        SecretId: "MyRDSInstanceRotationSecret-E8RVFHtdPBvC",
         VersionStage: "AWSCURRENT"
     };
 
@@ -25,7 +25,7 @@ const getDBConnectionParams = async () => {
             if (err) reject(err);
             const secret = JSON.parse(get(data, "SecretString"))
             resolve({
-                host: "wmtigl7afm4muu.cixsrkdeluxe.ap-southeast-1.rds.amazonaws.com",
+                host: get(secret, 'host'),
                 user: get(secret, 'username'),
                 password: get(secret, 'password'),
             })
