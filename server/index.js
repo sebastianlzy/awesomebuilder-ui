@@ -25,7 +25,7 @@ const getDBConnectionParams = async () => {
             if (err) reject(err);
             const secret = JSON.parse(get(data, "SecretString"))
             resolve({
-                host: get(secret, 'host'),
+                host: "wmtigl7afm4muu.cixsrkdeluxe.ap-southeast-1.rds.amazonaws.com",
                 user: get(secret, 'username'),
                 password: get(secret, 'password'),
             })
@@ -53,7 +53,6 @@ const getHostname = async () => {
         );
         return response.body
     } catch (error) {
-        console.log(error)
         return error.response.body;
     }
 }
@@ -105,7 +104,9 @@ app.get('/api/get-instance-hostname', (req, res) => {
 
     return getHostname()
         .then((hostname) => {
-            return insertHostName(hostname).then(() => res.send({hostname: hostname}))
+            return insertHostName(hostname)
+                .then(() => res.send({hostname: hostname}))
+                .catch(() => res.send({hostname: hostname}))
         }).catch(() => {
             res.send({hostname: 'ip-10-192-20-128.ap-southeast-1.compute.internal'})
         })
@@ -130,7 +131,6 @@ app.get('/api/get-previous-instance-hostnames', (req, res) => {
     }
 
     return getHostNames().then((hostnames) => {
-        console.log(hostnames)
         res.send({hostnames: hostnames});
     }).catch(() => {
         res.send({hostnames: ['ip-10-192-20-128.ap-southeast-1.compute.internal', '2']})
