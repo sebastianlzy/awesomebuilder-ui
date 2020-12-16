@@ -82,7 +82,7 @@ class App extends Component {
                 <TableCell component="th" scope="row">
                     {idx + 1}
                 </TableCell>
-                <TableCell>{record.hostname}</TableCell>
+                <TableCell>{record.name}</TableCell>
                 <TableCell>{record.created_at}</TableCell>
             </TableRow>
         ))

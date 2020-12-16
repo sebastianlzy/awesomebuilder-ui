@@ -7,12 +7,43 @@ const got = require('got');
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 AWS.config.update({region: 'ap-southeast-1'});
 const ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
+const secretsmanager = new AWS.SecretsManager();
+const mysql = require('mysql');
 
+const getDBConnectionParams = async () => {
+    const params = {
+        SecretId: "RdsCluster",
+        VersionStage: "AWSCURRENT"
+    };
 
+    return new Promise((resolve, reject) => {
+        secretsmanager.getSecretValue(params, function (err, data) {
+            if (err) reject(err);
+            const secret = JSON.parse(get(data, "SecretString"))
+            resolve({
+                host: get(secret, 'host'),
+                user: get(secret, 'username'),
+                password: get(secret, 'password'),
+            })
+        });
+    })
+}
+
+let pool = undefined
+
+if (pool === undefined) {
+    getDBConnectionParams().then((connectionParams) => {
+        pool = mysql.createPool({
+            connectionLimit: 10,
+            database: 'awesomebuilder',
+            ...connectionParams
+        });
+    })
+}
 
 const getHostname = async () => {
     try {
@@ -48,7 +79,7 @@ const getHostNames = async () => {
     return new Promise((resolve, reject) => {
         ec2.describeInstances({
             DryRun: false
-        }, function(err, data) {
+        }, function (err, data) {
             console.log("error", err)
             if (err) {
                 reject(err.stack)
@@ -61,11 +92,23 @@ const getHostNames = async () => {
 }
 
 app.get('/api/get-instance-hostname', (req, res) => {
-    return getHostname().then((hostname) => {
-        res.send({hostname: hostname});
-    }).catch(() => {
-        res.send({hostname: 'ip-10-192-20-128.ap-southeast-1.compute.internal'})
-    })
+
+    const insertHostName = async (hostname) => {
+        return new Promise((resolve, reject) => {
+            pool.query(`INSERT into hostname(name) values("${hostname}") `, function (error, results, fields) {
+                if (error) reject(error);
+                console.log(results)
+                resolve(results)
+            });
+        })
+    }
+
+    return getHostname()
+        .then((hostname) => {
+            return insertHostName(hostname).then(() => res.send({hostname: hostname}))
+        }).catch(() => {
+            res.send({hostname: 'ip-10-192-20-128.ap-southeast-1.compute.internal'})
+        })
 });
 
 app.get('/api/get-all-instance-hostnames', (req, res) => {
@@ -77,10 +120,17 @@ app.get('/api/get-all-instance-hostnames', (req, res) => {
 });
 
 app.get('/api/get-previous-instance-hostnames', (req, res) => {
-    return Promise.resolve([{
-        hostname: 'ip-10-192-20-128.ap-southeast-1.compute.internal',
-        created_at: '10-12-2020 10:59'
-    }]).then((hostnames) => {
+    const getHostNames = async () => {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT * from hostname limit 10', function (error, results, fields) {
+                if (error) reject(error);
+                resolve(results)
+            });
+        })
+    }
+
+    return getHostNames().then((hostnames) => {
+        console.log(hostnames)
         res.send({hostnames: hostnames});
     }).catch(() => {
         res.send({hostnames: ['ip-10-192-20-128.ap-southeast-1.compute.internal', '2']})
@@ -88,3 +138,11 @@ app.get('/api/get-previous-instance-hostnames', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+process.on('SIGTERM', () => {
+    debug('SIGTERM signal received: closing HTTP server')
+    app.close(() => {
+        debug('HTTP server closed')
+    })
+    pool.end()
+})
