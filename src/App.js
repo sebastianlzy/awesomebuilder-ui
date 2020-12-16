@@ -17,12 +17,12 @@ const useStyles = (theme) => ({
     paperSecondary: {
         padding: theme.spacing(2),
         textAlign: 'center',
-        color: theme.palette.secondary.main,
+        color: theme.palette.text.disabled,
     },
     paperPrimary: {
         padding: theme.spacing(2),
         textAlign: 'center',
-        color: theme.palette.primary.main,
+        color: theme.palette.success.dark,
     },
     menuButton: {
         marginRight: theme.spacing(2),
