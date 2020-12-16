@@ -76,4 +76,15 @@ app.get('/api/get-all-instance-hostnames', (req, res) => {
     })
 });
 
+app.get('/api/get-previous-instance-hostnames', (req, res) => {
+    return Promise.resolve([{
+        hostname: 'ip-10-192-20-128.ap-southeast-1.compute.internal',
+        created_at: '10-12-2020 10:59'
+    }]).then((hostnames) => {
+        res.send({hostnames: hostnames});
+    }).catch(() => {
+        res.send({hostnames: ['ip-10-192-20-128.ap-southeast-1.compute.internal', '2']})
+    })
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

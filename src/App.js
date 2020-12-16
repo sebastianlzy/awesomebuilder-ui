@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
-import {Grid, Paper, Container, Typography, Box, AppBar, Toolbar, IconButton} from '@material-ui/core'
+import {
+    Grid, Paper, Container, Typography, Box, AppBar, Toolbar, IconButton,
+    TableContainer, Table, TableHead, TableCell, TableBody, TableRow
+} from '@material-ui/core'
 import ComputerIcon from '@material-ui/icons/Computer';
 
 import {withStyles} from '@material-ui/core/styles';
@@ -24,39 +27,38 @@ const useStyles = (theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    table: {
+        minWidth: 650,
+    },
 });
 
 class App extends Component {
     state = {
         currHostName: '',
-        instanceHostnames: [],
+        instanceHostNames: [],
+        previousHostNames: []
     };
 
     componentDidMount() {
-        this.getCurrHostName()
+        this.fetch('/api/get-instance-hostname')
             .then(res => this.setState({currHostName: res.hostname}))
             .catch(err => this.setState({currHostName: JSON.stringify(err)}));
 
-        this.getHostNames()
-            .then(res => this.setState({instanceHostnames: res.hostnames}))
-            .catch(err => this.setState({instanceHostnames: [JSON.stringify(err)]}));
+        this.fetch('/api/get-all-instance-hostnames')
+            .then(res => this.setState({instanceHostNames: res.hostnames}))
+            .catch(err => this.setState({instanceHostNames: [JSON.stringify(err)]}));
+
+        this.fetch('/api/get-previous-instance-hostnames')
+            .then(res => this.setState({previousHostNames: res.hostnames}))
+            .catch(err => this.setState({previousHostNames: [JSON.stringify(err)]}));
     }
 
-    getCurrHostName = async () => {
-        const currHostName = await fetch('/api/get-instance-hostname');
-        const body = await currHostName.json();
-        if (currHostName.status !== 200) throw Error(body.message);
-        console.log(body)
+    fetch = async (url) => {
+        const resp = await fetch(url);
+        const body = await resp.json();
+        if (resp.status !== 200) throw Error(body.message);
         return body;
-    };
-
-    getHostNames = async () => {
-        const currHostName = await fetch('/api/get-all-instance-hostnames');
-        const body = await currHostName.json();
-        if (currHostName.status !== 200) throw Error(body.message);
-        console.log(body)
-        return body;
-    };
+    }
 
     renderGrids = (gridValues, currValue) => {
         const grids = []
@@ -72,6 +74,18 @@ class App extends Component {
             )
         }
         return grids
+    }
+
+    renderTableData = () => {
+        return this.state.previousHostNames.map((record, idx) => (
+            <TableRow key={record.hostname}>
+                <TableCell component="th" scope="row">
+                    {idx + 1}
+                </TableCell>
+                <TableCell>{record.hostname}</TableCell>
+                <TableCell>{record.created_at}</TableCell>
+            </TableRow>
+        ))
     }
 
     render() {
@@ -95,9 +109,30 @@ class App extends Component {
                         </Box>
                     </Typography>
                     <Grid container spacing={6}>
-                        {this.renderGrids(this.state.instanceHostnames, this.state.currHostName)}
+                        {this.renderGrids(this.state.instanceHostNames, this.state.currHostName)}
                     </Grid>
                 </Container>
+
+                <Typography component="div">
+                    <Box fontSize="h6.fontSize" m={1}>
+                        <h1>Previous hostnames</h1>
+                    </Box>
+                </Typography>
+
+                <TableContainer component={Paper}>
+                    <Table className={this.props.classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>#</TableCell>
+                                <TableCell>Hostnames</TableCell>
+                                <TableCell>Created At</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.renderTableData()}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
         );
     }
