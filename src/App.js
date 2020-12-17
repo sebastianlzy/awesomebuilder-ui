@@ -30,6 +30,9 @@ const useStyles = (theme) => ({
     table: {
         minWidth: 650,
     },
+    computeIconImg: {
+        opacity: 0.5
+    }
 });
 
 class App extends Component {
@@ -66,8 +69,12 @@ class App extends Component {
             grids.push(
                 <Grid item xs key={`homepage-grid-${i}`}>
                     <Paper
-                        className={gridValues[i] === currValue ? this.props.classes.paperPrimary : this.props.classes.paperSecondary}>
-                        <img src={ec2Icon} alt="ec2 logo"/>
+                        className={gridValues[i] === currValue ? this.props.classes.paperPrimary : this.props.classes.paperSecondary}
+                    >
+                        <img
+                            src={ec2Icon} alt="ec2 logo"
+                            className={gridValues[i] === currValue ? "" : this.props.classes.computeIconImg}
+                        />
                         <p>{gridValues[i]}</p>
                     </Paper>
                 </Grid>

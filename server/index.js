@@ -22,14 +22,19 @@ const getDBConnectionParams = async () => {
     };
 
     return new Promise((resolve, reject) => {
+
         secretsmanager.getSecretValue(params, function (err, data) {
-            if (err) reject(err);
-            const secret = JSON.parse(get(data, "SecretString"))
+            if (err) {
+                reject(err)
+                return
+            }
+            const secret = JSON.parse(get(data, "SecretString", {}))
             resolve({
-                host: get(secret, 'host'),
-                user: get(secret, 'username'),
-                password: get(secret, 'password'),
-            })
+                    host: get(secret, 'host'),
+                    user: get(secret, 'username'),
+                    password: get(secret, 'password'),
+                }
+            )
         });
     })
 }
@@ -37,13 +42,15 @@ const getDBConnectionParams = async () => {
 let pool = undefined
 
 if (pool === undefined) {
-    getDBConnectionParams().then((connectionParams) => {
-        pool = mysql.createPool({
-            connectionLimit: 10,
-            database: 'awesomebuilder',
-            ...connectionParams
-        });
-    })
+    getDBConnectionParams()
+        .then((connectionParams) => {
+            pool = mysql.createPool({
+                connectionLimit: 10,
+                database: 'awesomebuilder',
+                ...connectionParams
+            });
+        })
+        .catch((err) => console.log("getDBConnectionParams:", err))
 }
 
 const getHostname = async () => {
