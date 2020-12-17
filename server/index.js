@@ -141,7 +141,6 @@ app.get('/api/cloudwatch-asg-image', (req, res) => {
         "view": "timeSeries",
         "stacked": true,
         "setPeriodToTimeRange": true,
-        "liveData": true,
         "annotations": {
             "horizontal": [
                 {
