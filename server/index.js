@@ -134,13 +134,14 @@ app.get('/api/get-previous-instance-hostnames', (req, res) => {
 app.get('/api/cloudwatch-asg-image', (req, res) => {
     const params = {
         "metrics": [
-            [ "AWS/AutoScaling", "GroupInServiceInstances", "AutoScalingGroupName", "Webserver-WebServerGroup-1VX7RIGT4NI3D", { "yAxis": "left" } ],
-            [ ".", "GroupTotalCapacity", ".", ".", { "yAxis": "left" } ],
-            [ "AWS/EC2", "CPUUtilization", ".", ".", { "stat": "p99", "yAxis": "left" } ]
+            [ "AWS/AutoScaling", "GroupTotalCapacity", "AutoScalingGroupName", "Webserver-WebServerGroup-1VX7RIGT4NI3D", { "yAxis": "left", "label": "TotalCapacity [${LAST}]" } ],
+            [ ".", "GroupInServiceInstances", ".", ".", { "yAxis": "left", "label": "IntanceInServiceInstances [${LAST}]" } ],
+            [ "AWS/EC2", "CPUUtilization", ".", ".", { "stat": "p99", "yAxis": "left", "label": "ASG CPUUtilization [${LAST}]" } ]
         ],
         "view": "timeSeries",
-        "stacked": true,
+        "stacked": false,
         "setPeriodToTimeRange": true,
+        "liveData": true,
         "annotations": {
             "horizontal": [
                 {
@@ -155,12 +156,14 @@ app.get('/api/cloudwatch-asg-image', (req, res) => {
             },
             "right": {
                 "label": "Number of instances",
-                "min": 1,
-                "max": 5
+                "showUnits": true
             }
         },
         "stat": "Maximum",
         "period": 30,
+        "legend": {
+            "position": "right"
+        },
         "width": 1654,
         "height": 250,
         "start": "-PT30M",
