@@ -15,6 +15,11 @@ const ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 const secretsmanager = new AWS.SecretsManager();
 const mysql = require('mysql');
 
+// Create CloudWatch service object
+var cw = new AWS.CloudWatch({apiVersion: '2010-08-01'});
+
+
+
 const getDBConnectionParams = async () => {
     const params = {
         SecretId: "MyRDSInstanceRotationSecret-E8RVFHtdPBvC",
@@ -125,6 +130,54 @@ app.get('/api/get-previous-instance-hostnames', (req, res) => {
         res.send({hostnames: ['ip-10-192-20-128.ap-southeast-1.compute.internal', '2']})
     })
 });
+
+app.get('/api/cloudwatch-asg-image', (req, res) => {
+    const params = {
+        "metrics": [
+            [ "AWS/AutoScaling", "GroupInServiceInstances", "AutoScalingGroupName", "Webserver-WebServerGroup-1VX7RIGT4NI3D", { "yAxis": "left" } ],
+            [ ".", "GroupTotalCapacity", ".", ".", { "yAxis": "left" } ],
+            [ "AWS/EC2", "CPUUtilization", ".", ".", { "stat": "p99", "yAxis": "left" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": true,
+        "setPeriodToTimeRange": true,
+        "liveData": true,
+        "annotations": {
+            "horizontal": [
+                {
+                    "label": "CPU utilization threshold",
+                    "value": 10
+                }
+            ]
+        },
+        "yAxis": {
+            "left": {
+                "showUnits": true
+            },
+            "right": {
+                "label": "Number of instances",
+                "min": 1,
+                "max": 5
+            }
+        },
+        "stat": "Maximum",
+        "period": 30,
+        "width": 1654,
+        "height": 250,
+        "start": "-PT30M",
+        "end": "P0D",
+        "timezone": "+0800"
+    }
+
+    cw.getMetricWidgetImage({MetricWidget: JSON.stringify(params), "OutputFormat": "png"}, function(err, data) {
+        if (err) {
+            console.log("Error", err);
+        } else {
+
+            res.send({image: data["MetricWidgetImage"].toString('base64')})
+        }
+    });
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

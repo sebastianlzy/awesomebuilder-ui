@@ -39,7 +39,8 @@ class App extends Component {
     state = {
         currHostName: '',
         instanceHostNames: [],
-        previousHostNames: []
+        previousHostNames: [],
+        metricsImage: ""
     };
 
     componentDidMount() {
@@ -54,6 +55,13 @@ class App extends Component {
         this.fetch('/api/get-previous-instance-hostnames')
             .then(res => this.setState({previousHostNames: res.hostnames}))
             .catch(err => this.setState({previousHostNames: [JSON.stringify(err)]}));
+
+        this.fetch('/api/cloudwatch-asg-image')
+            .then(res => {
+                console.log(res)
+                this.setState({metricsImage: `data:image/png;base64, ${res.image}`})
+            })
+            .catch(err => this.setState({image: [JSON.stringify(err)]}));
     }
 
     fetch = async (url) => {
@@ -122,10 +130,17 @@ class App extends Component {
 
                 <Typography component="div">
                     <Box fontSize="h6.fontSize" m={1}>
-                        <h1>Previous hostnames</h1>
+                        <h1>Cloudwatch metrics</h1>
                     </Box>
                 </Typography>
 
+                <img src={this.state.metricsImage} />
+
+                <Typography component="div">
+                    <Box fontSize="h6.fontSize" m={1}>
+                        <h1>Previous hostnames</h1>
+                    </Box>
+                </Typography>
                 <TableContainer component={Paper}>
                     <Table className={this.props.classes.table} aria-label="simple table">
                         <TableHead>
