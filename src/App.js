@@ -40,10 +40,20 @@ class App extends Component {
         currHostName: '',
         instanceHostNames: [],
         previousHostNames: [],
-        metricsImage: ""
+        metricsImage: "",
+        interval: undefined
     };
 
     componentDidMount() {
+        this.fetchData()
+        this.setState({interval:  setInterval(this.fetchData, 10000)})
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.interval);
+    }
+
+    fetchData = () => {
         this.fetch('/api/get-instance-hostname')
             .then(res => this.setState({currHostName: res.hostname}))
             .catch(err => this.setState({currHostName: JSON.stringify(err)}));
