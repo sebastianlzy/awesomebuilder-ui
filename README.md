@@ -19,7 +19,8 @@ This demo aims to showcase how an application is able to cope with spiky traffic
 ### What is included in the demo?
 
 #### Web UI
-The web UI consist of 3 sections
+
+The [Web UI](http://webse-appli-wvdu5rb0sit7-1557819975.ap-southeast-1.elb.amazonaws.com/) consist of 3 sections: 
 
 ##### 1. No. of running instances
 This section provides an overview of the number of running instances. 
@@ -50,64 +51,18 @@ Due to load generation, group CPU utilization will increase over the threshold o
 
 ![Load](./readme/scaling-instances.gif)
 
-
-##### Appendix
-1. [Web UI](http://webse-appli-wvdu5rb0sit7-1557819975.ap-southeast-1.elb.amazonaws.com/)
-
 ---
 
 
-### What is needed for this demo?
 
 #### Infrastructure
 
-##### Appendix
-1. [cloudformation template](https://github.com/sebastianlzy/awesomebuilder-infra)
+We use [Cloudformation](https://github.com/sebastianlzy/awesomebuilder-infra) to provision our infrastructure
 
 ---
 
-#### Application deployment/Code Integration
+#### Continuous integration/Continuous Deployment
 
-
-##### Appendix
-1. [Ansible](https://github.com/sebastianlzy/awesomebuilder-ansible)
-1. [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.com/) 
+Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.com/) and [Ansible script](https://github.com/sebastianlzy/awesomebuilder-ansible) can be repurposed to deploy application to AWS 
 
 ---
-
-#### Content Delivery Network
-
----
-
-#### Security
-
-##### Security group
-
-##### Secret manager
-
- 
-
-
-## Screenshots
-
-![screenshot](./readme/awesomebuilder-ui.gif)
-
-
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
