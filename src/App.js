@@ -122,7 +122,7 @@ class App extends Component {
                             <ComputerIcon/>
                         </IconButton>
                         <Typography variant="h6" color="inherit">
-                            Awesomebuilder III - Dec 17, 2020
+                            Awesomebuilder III - Dec 20, 2020
                         </Typography>
                     </Toolbar>
                 </AppBar>
