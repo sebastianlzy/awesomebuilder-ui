@@ -39,15 +39,22 @@ This section provides a historical list of instance metadata that has served a r
 
 ##### Generating traffic
 
+Each task will opens 100 connections and send 5000 request every 10 seconds for 4 mins
+
+![Traffic](./readme/generate-load.gif)
+
 ##### What to expect?
+
+Due to load generation, group CPU utilization will increase over the threshold of 10%. Auto scaling group will be triggered to add additional resources. Once provision, the instance will need pass health check for the next 20 seconds before being added to the application load balancer. 
+
+
+![Load](./readme/scaling-instances.gif)
 
 
 ##### Appendix
 1. [Web UI](http://webse-appli-wvdu5rb0sit7-1557819975.ap-southeast-1.elb.amazonaws.com/)
 
 ---
-
-
 
 
 ### What is needed for this demo?
@@ -60,7 +67,6 @@ This section provides a historical list of instance metadata that has served a r
 ---
 
 #### Application deployment/Code Integration
-
 
 
 ##### Appendix
