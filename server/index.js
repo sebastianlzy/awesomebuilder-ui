@@ -134,8 +134,8 @@ app.get('/api/get-previous-instance-hostnames', (req, res) => {
 app.get('/api/cloudwatch-asg-image', (req, res) => {
     const params = {
         "metrics": [
-            [ "AWS/AutoScaling", "GroupTotalCapacity", "AutoScalingGroupName", "Webserver-WebServerGroup-1VX7RIGT4NI3D", { "yAxis": "left", "label": "TotalCapacity [${LAST}]" } ],
-            [ ".", "GroupInServiceInstances", ".", ".", { "yAxis": "left", "label": "IntanceInServiceInstances [${LAST}]" } ],
+            [ "AWS/AutoScaling", "GroupTotalCapacity", "AutoScalingGroupName", "Webserver-WebServerGroup-1VX7RIGT4NI3D", { "yAxis": "left", "label": "Number of running instances [${LAST}]" } ],
+            [ ".", "GroupInServiceInstances", ".", ".", { "yAxis": "left", "label": "Number of instances in service [${LAST}]" } ],
             [ "AWS/EC2", "CPUUtilization", ".", ".", { "stat": "p99", "yAxis": "left", "label": "ASG CPUUtilization [${LAST}]" } ]
         ],
         "view": "timeSeries",
