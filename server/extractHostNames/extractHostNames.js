@@ -11,7 +11,7 @@ const extractHostNames = (data) => {
                 return
             }
 
-            if (get(instance, 'ImageId') === "ami-0ae5ba72ac157d468") {
+            if (get(instance, 'ImageId') === "ami-0f07a979dd1a5bdd4") {
                 hostnames.push(get(instance, 'PrivateDnsName'))
             }
         })
