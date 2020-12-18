@@ -149,7 +149,7 @@
             "Instances": [
                 {
                     "AmiLaunchIndex": 0,
-                    "ImageId": "ami-0ae5ba72ac157d468",
+                    "ImageId": "ami-0f07a979dd1a5bdd4",
                     "InstanceId": "i-00fa9a5c5aaef2ca2",
                     "InstanceType": "t2.micro",
                     "KeyName": "sebastian987",
@@ -245,7 +245,7 @@
             "Instances": [
                 {
                     "AmiLaunchIndex": 1,
-                    "ImageId": "ami-0ae5ba72ac157d468",
+                    "ImageId": "ami-0f07a979dd1a5bdd4",
                     "InstanceId": "i-0e3b78bd7c6af04f6",
                     "InstanceType": "t2.micro",
                     "KeyName": "sebastian987",
@@ -333,7 +333,7 @@
                 },
                 {
                     "AmiLaunchIndex": 0,
-                    "ImageId": "ami-0ae5ba72ac157d468",
+                    "ImageId": "ami-0f07a979dd1a5bdd4",
                     "InstanceId": "i-0ecc375a9e836a7a5",
                     "InstanceType": "t2.micro",
                     "KeyName": "sebastian987",
