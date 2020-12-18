@@ -87,7 +87,6 @@ const getHostNames = async () => {
 
 app.get('/api/get-instance-hostname', (req, res) => {
     const insertHostName = async (hostname) => {
-        console.log(req)
         console.log(`[${req.headers.referer}] get-instance-hostname: `, hostname)
         return new Promise((resolve, reject) => {
             pool.query(`INSERT into hostname(name) values("${hostname}") `, function (error, results, fields) {
