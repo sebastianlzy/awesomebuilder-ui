@@ -68,7 +68,6 @@ class App extends Component {
 
         this.fetch('/api/cloudwatch-asg-image')
             .then(res => {
-                console.log(res)
                 this.setState({metricsImage: `data:image/png;base64, ${res.image}`})
             })
             .catch(err => this.setState({image: [JSON.stringify(err)]}));
