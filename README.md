@@ -20,7 +20,9 @@ This demo aims to showcase how an application is able to cope with spiky traffic
 
 #### Web UI
 
-The [Web UI](http://webse-appli-wvdu5rb0sit7-1557819975.ap-southeast-1.elb.amazonaws.com/) consist of 3 sections: 
+The Web UI consist of 3 sections: 
+1. [Web UI - Cloudfront](https://d36du6tgphs6li.cloudfront.net/)
+2. [Web UI - ALB](http://webse-appli-wvdu5rb0sit7-1557819975.ap-southeast-1.elb.amazonaws.com/)
 
 ##### 1. No. of running instances
 This section provides an overview of the number of running instances. 

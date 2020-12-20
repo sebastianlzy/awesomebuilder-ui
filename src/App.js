@@ -89,7 +89,8 @@ class App extends Component {
                         className={gridValues[i] === currValue ? this.props.classes.paperPrimary : this.props.classes.paperSecondary}
                     >
                         <img
-                            src={ec2Icon} alt="ec2 logo"
+                            src={gridValues[i] === currValue ? "https://dkcglq1in25ty.cloudfront.net/ec2-icon.png" : ec2Icon}
+                            alt="ec2 logo"
                             className={gridValues[i] === currValue ? "" : this.props.classes.computeIconImg}
                         />
                         <p>{gridValues[i]}</p>
