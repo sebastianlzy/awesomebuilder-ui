@@ -67,45 +67,38 @@ Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.c
 
 ---
 
-### Total Cost of Ownership (TCO)
-
+### Estimated Total Cost of Ownership (TCO)
 
 
 #### Assumptions
 1. Operates mainly out of Asia Pacific (Singapore)
-2. Workload is compute intensive with a small memory footprint
-3. 	Most of the traffic happens between 0800 - 2200
-4. Uncertain and unpredictable usage pattern
-4. 
-5. A total of 100000 users, with an average of 1 requests per second that last for 1 second and transfer an average of 300KB
-6. Compute resources need
-	1. 	
+2. Workload is a small web application that uses resources in equal proportion
+3. 	Most of the traffic happens between 0800 - 2200 (10 hours), with uncertain and unpredictable usage pattern
+4. A total of 10,000 users, with an average of 1 requests per second
+5. Each request last an average of 1 second and transfer around 300KB of data
+6. An estimated usage of 1TB of object storage usage
+7. Compute resources needed
+	1. 	2 baseline instances - minimum needed for non-peak user traffic
+	2. 4 peak instances - maximum needed to handle spike
+8. Usage of Multi AZ for High availability
 
-#### Services
+ 
 
-| Service	| Pricing | Unit 	| Cost	|
+#### Service breakdown
+
+Estimated total cost of running this workload: **~$900.00/month** or **~$0.09/customer**
+
+| Service	| Pricing | Per month	| Estimated Cost ($)|
 | --- 		| --- 		| --- 		| --- 	|
-| Cloudfront | TBA | TBA | TBA|
-| S3 | TBA | TBA | TBA|
-| ELB - Application Load balancer  | $0.0252/hour | 730 | $18.144|
-| ELB - Load Balancer capacity Unit (LCU)  | $0.008/hour | 1.08 | $6.22|
-| Nat Gateway | TBA | TBA | TBA
-| EC2 (T3.large) | $0.1056/hour | 730 * 2 | $154.18|
-| EC2 - ASG (T3.large) | $0.1056/hour | 304 * 4 | $128.41|
-| Elastic Block Storage | TBA | TBA | TBA
-| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 | $299.52|
-| RDS storage - Multi AZ (20GB) | $0.276/GB | 20 | $5.52|
-| Web application firewall | TBA | TBA | TBA|
-| Cloudwatch | TBA | TBA | TBA|
-| Cloudtrail | TBA | TBA | TBA|
-| Key Management Service | TBA | TBA | TBA|
-| Secret Manager | TBA | TBA | TBA|
-
-#### Note
-
-##### ELB
-
-LCU
+| Cloudfront | $0.140/GB | 300kb * 3600 request per hour * 300 hours | $45.36 |
+| S3 | $0.025/GB | 1000GB | $25 |
+| ELB, Application Load balancer  | $0.0252/hour | 720 hour | $18.10|
+| Nat Gateway | $0.059/hour | 720 * 2 gateway | $85 |
+| Nat Gateway - Data processed| $0.059/GB | 50GB * 2 gateway | $5.90
+| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 |
+| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72|
+| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52|
+| RDS storage - Multi AZ (20GB) | $0.276/GB | 500 GB | $138|
 
 #### References
 1. https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf
