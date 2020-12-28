@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  awesomebuilder-ui:
+    build: .
+    image: awesomebuilder-ui
+    ports:
+      - "5000:5000"

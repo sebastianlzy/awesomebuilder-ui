@@ -1,8 +1,11 @@
+require('dotenv').config()
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const get = require('lodash/get')
 const AWS = require('aws-sdk');
 const got = require('got');
+const path = require("path");
 const extractHostNames = require('./extractHostNames/extractHostNames')
 
 const app = express();
@@ -22,7 +25,7 @@ var cw = new AWS.CloudWatch({apiVersion: '2010-08-01'});
 
 const getDBConnectionParams = async () => {
     const params = {
-        SecretId: "MyRDSInstanceRotationSecret-E8RVFHtdPBvC",
+        SecretId: process.env.RDS_SECRET_ID,
         VersionStage: "AWSCURRENT"
     };
 
@@ -30,6 +33,7 @@ const getDBConnectionParams = async () => {
 
         secretsmanager.getSecretValue(params, function (err, data) {
             if (err) {
+
                 reject(err)
                 return
             }
@@ -85,6 +89,12 @@ const getHostNames = async () => {
     })
 }
 
+app.use(express.static(path.join(__dirname, "../build")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "index.html"));
+});
+
 app.get('/api/get-instance-hostname', (req, res) => {
     const insertHostName = async (hostname) => {
         console.log(`[${req.headers.referer}][${hostname}] : /api/get-instance-hostname `, )
@@ -117,8 +127,9 @@ app.get('/api/get-all-instance-hostnames', (req, res) => {
 app.get('/api/get-previous-instance-hostnames', (req, res) => {
     const getHostNames = async () => {
         return new Promise((resolve, reject) => {
+
             pool.query('SELECT * from hostname order by created_at DESC limit 10 ', function (error, results, fields) {
-                if (error) reject(error);
+                if (error) reject([]);
                 resolve(results)
             });
         })

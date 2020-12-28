@@ -64,7 +64,7 @@ class App extends Component {
 
         this.fetch('/api/get-previous-instance-hostnames')
             .then(res => this.setState({previousHostNames: res.hostnames}))
-            .catch(err => this.setState({previousHostNames: [JSON.stringify(err)]}));
+            .catch(err => this.setState({previousHostNames: []}));
 
         this.fetch('/api/cloudwatch-asg-image')
             .then(res => {
