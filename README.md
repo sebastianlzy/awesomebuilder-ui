@@ -1,7 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Build status
 [![Build Status](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.com/buildStatus/icon?job=awesomebuilder-node&subject=Build)](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.com/job/awesomebuilder-node/)
 [![Build Status](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.com/buildStatus/icon?job=awesomebuilder-pipeline&subject=Deployment)](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.com/job/awesomebuilder-pipeline)
@@ -11,29 +7,30 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Objective
 
 ### Why?
-It is often difficult to visualize and understand how elasticity works in AWS. 
+It is often difficult to visualize and understand how elasticity works in EKS. 
 
 ### How will this demo help?
-This demo aims to showcase how an application is able to cope with spiky traffic by increasing the number of compute instances based on CPU utilization 
+This demo aims to showcase how an application is able to cope with spiky traffic by 
+
+1. increasing the number of pod 
+2. increasing the number of nodes 
 
 ### What is included in the demo?
 
 #### Web UI
 
 The Web UI consist of 3 sections: 
-1. [Web UI - Cloudfront](https://d36du6tgphs6li.cloudfront.net/)
-2. [Web UI - ALB](http://webse-appli-wvdu5rb0sit7-1557819975.ap-southeast-1.elb.amazonaws.com/)
+2. [Web UI - ALB](http://k8s-default-awesomeb-c423295acd-be9479a82d3a0b69.elb.ap-southeast-1.amazonaws.com/)
 
 ##### 1. No. of running instances
-This section provides an overview of the number of running instances. 
+This section provides an overview of the number of running nodes. 
 Instance serving the request is highlighted in "Green" while instances that are "running" are displayed in "Grey"
 
 ##### 2. Cloudwatch metrics
 This section provides the
  
 1. Overall CPU utilization of the Auto-Scaling Group (ASG) instances, 
-2. Total number of "running" instances
-3. Total number of instance in service that are able to respond to request 
+2. Total number of healthy pods behind a NLB
 
 ##### 3. Recorded hostnames
 This section provides a historical list of instance metadata that has served a request 
@@ -44,26 +41,24 @@ This section provides a historical list of instance metadata that has served a r
 
 Each task will opens 100 connections and send 5000 request every 10 seconds for 4 mins
 
-![Traffic](./readme/generate-load.gif)
-
 ##### What to expect?
 
 Due to load generation, group CPU utilization will increase over the threshold of 10%. Auto scaling group will be triggered to add additional resources. Once provision, the instance will need pass health check for the next 20 seconds before being added to the application load balancer. 
-
-
-![Load](./readme/scaling-instances.gif)
 
 ---
 
 ### Infrastructure
 
-We use [Cloudformation](https://github.com/sebastianlzy/awesomebuilder-infra) to provision our infrastructure
+![EKS](https://raw.githubusercontent.com/sebastianlzy/draw-io/master/awesomebuilder/awesomebuilderIII-EKS.png)
 
 ---
 
 ### Continuous integration/Continuous Deployment
 
-Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.com/) and [Ansible script](https://github.com/sebastianlzy/awesomebuilder-ansible) can be repurposed to deploy application to AWS 
+```
+# To deploy latest commit change
+npr deploy
+``` 
 
 ---
 
@@ -84,21 +79,8 @@ Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.c
 
  
 
-#### Service breakdown
+#### Service breakdown (TBA)
 
-Estimated total cost of running this workload: **~$900.00/month** or **~$0.09/customer**
-
-| Service	| Pricing | Per month	| Estimated Cost ($)|
-| --- 		| --- 		| --- 		| --- 	|
-| Cloudfront | $0.140/GB | 300kb * 3600 request per hour * 300 hours | $45.36 |
-| S3 | $0.025/GB | 1000GB | $25 |
-| ELB, Application Load balancer  | $0.0252/hour | 720 hour | $18.10|
-| Nat Gateway | $0.059/hour | 720 * 2 gateway | $85 |
-| Nat Gateway - Data processed| $0.059/GB | 50GB * 2 gateway | $5.90
-| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 |
-| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72|
-| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52|
-| RDS storage - Multi AZ (20GB) | $0.276/GB | 500 GB | $138|
 
 #### References
 1. https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf
