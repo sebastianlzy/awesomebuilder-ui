@@ -7,6 +7,7 @@ const AWS = require('aws-sdk');
 const got = require('got');
 const path = require("path");
 const extractHostNames = require('./extractHostNames/extractHostNames')
+const getCloudWatchImage = require('./get-cloudwatch-image')
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,10 +18,6 @@ AWS.config.update({region: 'ap-southeast-1'});
 const ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 const secretsmanager = new AWS.SecretsManager();
 const mysql = require('mysql');
-
-// Create CloudWatch service object
-var cw = new AWS.CloudWatch({apiVersion: '2010-08-01'});
-
 
 
 const getDBConnectionParams = async () => {
@@ -142,55 +139,7 @@ app.get('/api/get-previous-instance-hostnames', (req, res) => {
     })
 });
 
-app.get('/api/cloudwatch-asg-image', (req, res) => {
-    const params = {
-        "metrics": [
-            [ "AWS/AutoScaling", "GroupTotalCapacity", "AutoScalingGroupName", "Webserver-WebServerGroup-1VX7RIGT4NI3D", { "yAxis": "left", "label": "Number of running instances [${LAST}]" } ],
-            [ ".", "GroupInServiceInstances", ".", ".", { "yAxis": "left", "label": "Number of instances in service [${LAST}]" } ],
-            [ "AWS/EC2", "CPUUtilization", ".", ".", { "stat": "p99", "yAxis": "left", "label": "ASG CPUUtilization [${LAST}]" } ]
-        ],
-        "view": "timeSeries",
-        "stacked": false,
-        "setPeriodToTimeRange": true,
-        "liveData": true,
-        "annotations": {
-            "horizontal": [
-                {
-                    "label": "CPU utilization threshold",
-                    "value": 10
-                }
-            ]
-        },
-        "yAxis": {
-            "left": {
-                "showUnits": true
-            },
-            "right": {
-                "label": "Number of instances",
-                "showUnits": true
-            }
-        },
-        "stat": "Maximum",
-        "period": 30,
-        "legend": {
-            "position": "right"
-        },
-        "width": 1654,
-        "height": 250,
-        "start": "-PT30M",
-        "end": "P0D",
-        "timezone": "+0800"
-    }
-
-    cw.getMetricWidgetImage({MetricWidget: JSON.stringify(params), "OutputFormat": "png"}, function(err, data) {
-        if (err) {
-            console.log("Error", err);
-        } else {
-
-            res.send({image: data["MetricWidgetImage"].toString('base64')})
-        }
-    });
-})
+app.get('/api/cloudwatch-asg-image', getCloudWatchImage)
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
