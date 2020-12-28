@@ -1,6 +1,6 @@
 const get = require('lodash/get')
 
-const extractHostNames = (data) => {
+const index = (data) => {
 
     const reservations = get(data, 'Reservations', [])
 
@@ -18,4 +18,4 @@ const extractHostNames = (data) => {
     }, [])
 }
 
-module.exports = extractHostNames
+module.exports = index

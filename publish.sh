@@ -19,7 +19,7 @@ echo 'container pushed'
 echo 'update pod deployment'
 sed s/%IMAGE_PATH%/public.ecr.aws\\/m8o2b2o2\\/awesomebuilder:$(git rev-parse HEAD)/g \
  ./eks/awesomebuilder-service.dev.yaml > ./eks/awesomebuilder-service.yaml
-
 alscli eks apply ./eks/awesomebuilder-service.yaml
+
 echo 'wait for pod deployment'
 alscli eks get-pods

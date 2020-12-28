@@ -30,7 +30,8 @@
     "test:server": "jest server --watchAll=false --detectOpenHandles",
     "test:watc": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": ". ./publish.sh"
+    "publish": ". ./publish.sh",
+    "deploy": "alscli eks apply ./eks/awesomebuilder-service.yaml"
   },
   "proxy": "http://localhost:5000/",
   "eslintConfig": {

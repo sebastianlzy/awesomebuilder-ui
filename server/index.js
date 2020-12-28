@@ -6,7 +6,7 @@ const get = require('lodash/get')
 const AWS = require('aws-sdk');
 const got = require('got');
 const path = require("path");
-const extractHostNames = require('./extractHostNames/extractHostNames')
+const extractHostNames = require('./extract-host-names')
 const getCloudWatchImage = require('./get-cloudwatch-image')
 
 const app = express();
