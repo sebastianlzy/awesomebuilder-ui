@@ -139,7 +139,10 @@ class App extends Component {
                 <Container className="App">
                     <Typography component="div">
                         <Box fontSize="h6.fontSize" m={1}>
-                            <h1>Hello from ${this.state.podName}:${this.state.podIPAddress}</h1>
+                            <h1>Hello from</h1>
+                        </Box>
+                        <Box fontSize="h6.fontsize" m={1}>
+                            {this.state.podName}:{this.state.podIPAddress}
                         </Box>
                     </Typography>
                     <Grid container spacing={6}>
