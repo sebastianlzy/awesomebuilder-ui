@@ -30,6 +30,11 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 2        # how many pods we can add at a time
+        maxUnavailable: 0
     spec:
       containers:
         - name: awesomebuilder
