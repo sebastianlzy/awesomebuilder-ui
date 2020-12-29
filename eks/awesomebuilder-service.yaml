@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: awesomebuilder-app
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: awesomebuilder-ui
@@ -29,7 +29,20 @@ spec:
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:6eced4598232f1b4f93b78d8803cd57a7dd11edf
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:497e64bba30a1738ffe8b1798e37ac5e34f2505f
           ports:
             - name: http
               containerPort: 5000
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP

@@ -5,9 +5,3 @@ services:
     image: awesomebuilder-ui
     ports:
       - "5000:5000"
-    logging:
-      driver: awslogs
-      options:
-        awslogs-region: ap-southeast-1
-        awslogs-group: awesomebuilder-ui-logs
-        awslogs-create-group: true
