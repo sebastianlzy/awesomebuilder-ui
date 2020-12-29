@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:b130fabbc9c29df4d02fa6bcceb5e2e3cf901c67
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:a9ef707e1c6d174c8b18326d362e8c9fd89f3f73
           ports:
             - name: http
               containerPort: 5000
