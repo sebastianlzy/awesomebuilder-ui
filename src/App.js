@@ -40,6 +40,8 @@ class App extends Component {
         currHostName: '',
         instanceHostNames: [],
         previousHostNames: [],
+        podName: "",
+        podIPAddress: "",
         metricsImage: "",
         interval: undefined
     };
@@ -66,11 +68,18 @@ class App extends Component {
             .then(res => this.setState({previousHostNames: res.hostnames}))
             .catch(err => this.setState({previousHostNames: []}));
 
-        this.fetch('/api/cloudwatch-asg-image')
+        this.fetch('/api/cloudwatch-metrics-image')
             .then(res => {
                 this.setState({metricsImage: `data:image/png;base64, ${res.image}`})
             })
             .catch(err => this.setState({image: [JSON.stringify(err)]}));
+
+        this.fetch('/api/get-pod-metadata')
+            .then(res => this.setState({
+                podIPAddress: res.podIPAddress,
+                podName: res.podName
+            }))
+            .catch(err => this.setState({podMetadata: []}));
     }
 
     fetch = async (url) => {
@@ -130,7 +139,7 @@ class App extends Component {
                 <Container className="App">
                     <Typography component="div">
                         <Box fontSize="h6.fontSize" m={1}>
-                            <h1>Hello from</h1>
+                            <h1>Hello from ${this.state.podName}:${this.state.podIPAddress}</h1>
                         </Box>
                     </Typography>
                     <Grid container spacing={6}>

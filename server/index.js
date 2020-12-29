@@ -92,6 +92,13 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
+app.get('/api/get-pod-metadata', (req, res) => {
+    return res.send({
+        podName: process.env.POD_NAME || "mypodname",
+        podIPAddress: process.env.POD_IP || "mypodipaddress"
+    })
+})
+
 app.get('/api/get-instance-hostname', (req, res) => {
     const insertHostName = async (hostname) => {
         console.log(`[${req.headers.referer}][${hostname}] : /api/get-instance-hostname `, )
@@ -139,7 +146,7 @@ app.get('/api/get-previous-instance-hostnames', (req, res) => {
     })
 });
 
-app.get('/api/cloudwatch-asg-image', getCloudWatchImage)
+app.get('/api/cloudwatch-metrics-image', getCloudWatchImage)
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
