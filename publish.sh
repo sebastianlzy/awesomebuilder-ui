@@ -22,4 +22,4 @@ sed s/%IMAGE_PATH%/public.ecr.aws\\/m8o2b2o2\\/awesomebuilder:$(git rev-parse HE
 alscli eks apply ./eks/awesomebuilder-service.yaml
 
 echo 'wait for pod deployment'
-alscli eks get-pods
+alscli eks rollout-status deployment.apps/awesomebuilder-app
