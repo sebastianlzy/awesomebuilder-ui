@@ -22,6 +22,11 @@ spec:
   selector:
     matchLabels:
       app: awesomebuilder-ui
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2        # how many pods we can add at a time
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -29,7 +34,7 @@ spec:
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:a9ef707e1c6d174c8b18326d362e8c9fd89f3f73
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:242542a5f73d478f40400c9fe094e5eb7b044a53
           ports:
             - name: http
               containerPort: 5000

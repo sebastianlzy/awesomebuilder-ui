@@ -131,7 +131,7 @@ class App extends Component {
                             <ComputerIcon/>
                         </IconButton>
                         <Typography variant="h6" color="inherit">
-                            Awesomebuilder III - Dec 28, 2020
+                            Awesomebuilder III - Dec 29, 2020
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -142,7 +142,7 @@ class App extends Component {
                             <h1>Hello from</h1>
                         </Box>
                         <Box fontSize="h6.fontsize" m={1}>
-                            {this.state.podName}:{this.state.podIPAddress}
+                            <strong>{this.state.podName}</strong> with <strong>{this.state.podIPAddress}</strong>
                         </Box>
                     </Typography>
                     <Grid container spacing={6}>
