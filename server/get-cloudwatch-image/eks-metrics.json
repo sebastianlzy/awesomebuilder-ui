@@ -1,7 +1,7 @@
 {
   "metrics": [
     [ "ContainerInsights", "pod_cpu_utilization", "ClusterName", "awesomebuilder-container", "Service", "awesomebuilder-service", "Namespace", "default", { "label": "EKS/AwesomebuilderService CPUUtilization", "id": "m2", "period": 300, "stat": "Average" } ],
-    [ "AWS/EC2", "CPUUtilization", "AutoScalingGroupName", "eks-f8bb5676-c7fd-166e-e7cb-945caca0f26a", { "period": 300 } ],
+    [ "AWS/EC2", "CPUUtilization", "AutoScalingGroupName", "eks-f8bb5676-c7fd-166e-e7cb-945caca0f26a", { "period": 300, "stat": "Average" } ],
     [ "ContainerInsights", "service_number_of_running_pods", "ClusterName", "awesomebuilder-container", "Service", "awesomebuilder-service", "Namespace", "default", { "yAxis": "right", "label": "EKS/AwesomebuilderService NumberOfPodsRunning", "id": "m3" } ],
     [ "AWS/NetworkELB", "HealthyHostCount", "TargetGroup", "targetgroup/k8s-default-awesomeb-66ac3cf436/8a7bf8477852b9cd", "LoadBalancer", "net/k8s-default-awesomeb-c423295acd/be9479a82d3a0b69", { "yAxis": "right", "label": "NLB/TargetGroup HealthyHostCount" } ],
     [ "AWS/AutoScaling", "GroupTotalInstances", "AutoScalingGroupName", "eks-f8bb5676-c7fd-166e-e7cb-945caca0f26a", { "yAxis": "right" } ],
