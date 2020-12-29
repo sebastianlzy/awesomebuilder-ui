@@ -31,6 +31,7 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
+        kubernetes.io/change-cause: %COMMIT_MESSAGE%
     spec:
       containers:
         - name: awesomebuilder

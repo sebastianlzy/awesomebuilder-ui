@@ -31,10 +31,11 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
+        kubernetes.io/change-cause: updaterollingstrategy
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:05925eff83a0b8152ba07bf6e84ae39e97a32edd
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:4c94303b4dcd83faabbecbe492e185121bfac1d7
           ports:
             - name: http
               containerPort: 5000
