@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: awesomebuilder-app
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: awesomebuilder-ui
@@ -31,11 +31,11 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
-        kubernetes.io/change-cause: updaterollingstrategy
+        kubernetes.io/change-cause: updatedeploymentrecord
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:4c94303b4dcd83faabbecbe492e185121bfac1d7
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:d9e5e8367947fb8ee1aa1df8a8402e594a97d1cc
           ports:
             - name: http
               containerPort: 5000

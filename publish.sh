@@ -27,3 +27,6 @@ alscli eks apply ./eks/awesomebuilder-service.yaml
 
 echo 'wait for pod deployment'
 alscli eks rollout-status deployment.apps/awesomebuilder-app
+
+echo 'create auto scale'
+alscli eks auto-scale deployment.apps/awesomebuilder-app 10 1 10

@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: awesomebuilder-app
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: awesomebuilder-ui
