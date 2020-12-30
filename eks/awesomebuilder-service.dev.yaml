@@ -54,6 +54,6 @@ spec:
                   fieldPath: status.podIP
           resources:
             limits:
-              cpu: 10m
+              cpu: 200m
             requests:
-              cpu: 5m
+              cpu: 100m

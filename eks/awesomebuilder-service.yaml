@@ -31,11 +31,11 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
-        kubernetes.io/change-cause: updatewithautoscaler
+        kubernetes.io/change-cause: updatetoincludepodnameandipaddress
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:d10e31be689d74401939c4aeead40693d2600eb8
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:882cf072417b5c8e16310510eb6377c36e590263
           ports:
             - name: http
               containerPort: 5000
@@ -54,6 +54,6 @@ spec:
                   fieldPath: status.podIP
           resources:
             limits:
-              cpu: 100m
+              cpu: 200m
             requests:
-              cpu: 50m
+              cpu: 100m

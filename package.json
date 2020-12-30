@@ -31,7 +31,7 @@
     "test:watc": "react-scripts test",
     "eject": "react-scripts eject",
     "publish": ". ./publish.sh",
-    "deploy": "alscli eks apply ./eks/awesomebuilder-service.yaml"
+    "deploy": ". ./eks/generate-awesomebuilder-service.sh;alscli eks apply ./eks/awesomebuilder-service.yaml"
   },
   "proxy": "http://localhost:5000/",
   "eslintConfig": {
