@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: awesomebuilder-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: awesomebuilder-ui
@@ -31,11 +31,11 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
-        kubernetes.io/change-cause: updatedeploymentrecord
+        kubernetes.io/change-cause: updatewithautoscaler
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:d9e5e8367947fb8ee1aa1df8a8402e594a97d1cc
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:d10e31be689d74401939c4aeead40693d2600eb8
           ports:
             - name: http
               containerPort: 5000
@@ -52,3 +52,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+          resources:
+            limits:
+              cpu: 100m
+            requests:
+              cpu: 50m

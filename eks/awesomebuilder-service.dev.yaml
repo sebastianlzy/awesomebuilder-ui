@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: awesomebuilder-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: awesomebuilder-ui
@@ -52,3 +52,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+          resources:
+            limits:
+              cpu: 10m
+            requests:
+              cpu: 5m
