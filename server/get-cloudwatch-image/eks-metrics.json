@@ -14,7 +14,7 @@
   "period": 30,
   "width": 1821,
   "height": 250,
-  "start": "-PT3H",
+  "start": "-PT1H",
   "end": "P0D",
   "timezone": "+0800"
 }

@@ -21,8 +21,8 @@ The Web UI consist of 3 sections:
 2. [Web UI - ALB](http://k8s-default-awesomeb-c423295acd-be9479a82d3a0b69.elb.ap-southeast-1.amazonaws.com/)
 
 ##### 1. No. of running instances
-This section provides an overview of the number of running nodes. 
-Instance serving the request is highlighted in "Green" while instances that are "running" are displayed in "Grey"
+This section provides an overview of the number of running nodes and provide information about the Pod name and pod IP address that is serving the request. 
+In addition, highlighted in "Green" is the node serving the request while "Grey" signifies "running" status. 
 
 ##### 2. Cloudwatch metrics
 This section provides the

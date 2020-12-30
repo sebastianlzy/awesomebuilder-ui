@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   name: awesomebuilder-app
   annotations:
-    kubernetes.io/change-cause: setannotationondeployment
+    kubernetes.io/change-cause: updateannotation
 spec:
   replicas: 2
   selector:
@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:7d1430c0642779aa53739ba2b05afe4048baf6d7
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:11816e758868d81dd59217fa9614319170829e0b
           ports:
             - name: http
               containerPort: 5000
