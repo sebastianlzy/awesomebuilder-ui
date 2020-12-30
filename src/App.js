@@ -117,6 +117,8 @@ class App extends Component {
                     {idx + 1}
                 </TableCell>
                 <TableCell>{record.name}</TableCell>
+                <TableCell>{record.podname}</TableCell>
+                <TableCell>{record.podip}</TableCell>
                 <TableCell>{record.created_at}</TableCell>
             </TableRow>
         ))
@@ -169,6 +171,8 @@ class App extends Component {
                             <TableRow>
                                 <TableCell>#</TableCell>
                                 <TableCell>Hostnames</TableCell>
+                                <TableCell>PodName</TableCell>
+                                <TableCell>PodIP</TableCell>
                                 <TableCell>Created At</TableCell>
                             </TableRow>
                         </TableHead>

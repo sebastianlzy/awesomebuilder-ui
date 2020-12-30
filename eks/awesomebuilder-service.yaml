@@ -31,11 +31,11 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
-        kubernetes.io/change-cause: updatetoincludepodnameandipaddress
+        kubernetes.io/change-cause: updatesqlquery
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:882cf072417b5c8e16310510eb6377c36e590263
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:326c0eb57ef36a6bcc5c9f809748486cca8e1799
           ports:
             - name: http
               containerPort: 5000
