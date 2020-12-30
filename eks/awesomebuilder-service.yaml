@@ -17,6 +17,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: awesomebuilder-app
+  annotations:
+    kubernetes.io/change-cause: setannotationondeployment
 spec:
   replicas: 2
   selector:
@@ -31,11 +33,10 @@ spec:
     metadata:
       labels:
         app: awesomebuilder-ui
-        kubernetes.io/change-cause: updatesqlquery
     spec:
       containers:
         - name: awesomebuilder
-          image: public.ecr.aws/m8o2b2o2/awesomebuilder:326c0eb57ef36a6bcc5c9f809748486cca8e1799
+          image: public.ecr.aws/m8o2b2o2/awesomebuilder:7d1430c0642779aa53739ba2b05afe4048baf6d7
           ports:
             - name: http
               containerPort: 5000

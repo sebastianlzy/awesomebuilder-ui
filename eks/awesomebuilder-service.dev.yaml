@@ -17,7 +17,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: awesomebuilder-app
-  kubernetes.io/change-cause: %COMMIT_MESSAGE%
+  annotations:
+    kubernetes.io/change-cause: %COMMIT_MESSAGE%
 spec:
   replicas: 2
   selector:
