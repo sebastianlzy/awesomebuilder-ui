@@ -96,6 +96,13 @@ Estimated total cost of running this workload: **~$900.00/month** or **~$0.09/cu
 | RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52|
 | RDS storage - Multi AZ (20GB) | $0.276/GB | 500 GB | $138|
 
+#### Cost optimization
+
+1. Reserved instance
+    1. Amazon EC2 Reserved Instances (RI) provide a significant discount (up to 72%) compared to On-Demand pricing 
+2. Spot instance
+    1. Run fault-tolerant workloads for up to 90% off
+
 #### References
 1. https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf
 
