@@ -82,13 +82,9 @@ Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.c
 
 #### Service breakdown
 
-Estimated total cost of running this workload: 
+Estimated total cost of running this workload: **~$893.61/month** or **~$0.89/customer**
 
-**~$893.61/month** or **~$0.89/customer**
-
-With a 1 year commitment, you get 21.5% discount
-
-**~$701.36/month** or **~$0.70/customer**
+With a 1 year commitment, you get 21.5% discount: **~$701.36/month** or **~$0.70/customer**
 
 | Service	| Pricing | Per month	| Estimated cost | Estimated cost w 1 year commitment (reserved instance)* |
 | --- 		| --- 		| --- 		| --- 	| --- |
@@ -97,9 +93,9 @@ With a 1 year commitment, you get 21.5% discount
 | ELB, Application Load balancer  | $0.0252/hour | 720 hour | $18.10 | $18.10 |
 | Nat Gateway | $0.059/hour | 720 * 2 gateway | $85 | $85 |
 | Nat Gateway - Data processed| $0.059/GB | 50GB * 2 gateway | $5.90 | $5.90 |
-| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 | $89.28 |
-| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72| $74.40 |
-| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52| $220.32 |
+| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 | **$89.28** |
+| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72| **$74.40** |
+| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52| **$220.32** |
 | RDS storage - Multi AZ (20GB) | $0.276/GB | 500 GB | $138 |  $138 |
 | Total | | | $893.61 | $701.36 |
 
