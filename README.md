@@ -63,7 +63,7 @@ Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.c
 
 ---
 
-### Estimated Total Cost of Ownership (TCO)
+### Estimated Total Cost of Workload
 
 
 #### Assumptions
@@ -82,26 +82,28 @@ Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.c
 
 #### Service breakdown
 
-Estimated total cost of running this workload: **~$900.00/month** or **~$0.09/customer**
+Estimated total cost of running this workload: 
 
-| Service	| Pricing | Per month	| Estimated Cost ($)|
-| --- 		| --- 		| --- 		| --- 	|
-| Cloudfront | $0.140/GB | 300kb * 3600 request per hour * 300 hours | $45.36 |
-| S3 | $0.025/GB | 1000GB | $25 |
-| ELB, Application Load balancer  | $0.0252/hour | 720 hour | $18.10|
-| Nat Gateway | $0.059/hour | 720 * 2 gateway | $85 |
-| Nat Gateway - Data processed| $0.059/GB | 50GB * 2 gateway | $5.90
-| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 |
-| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72|
-| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52|
-| RDS storage - Multi AZ (20GB) | $0.276/GB | 500 GB | $138|
+**~$893.61/month** or **~$0.89/customer**
 
-#### Cost optimization
+With a 1 year commitment, you get 21.5% discount
 
-1. Reserved instance
-    1. Amazon EC2 Reserved Instances (RI) provide a significant discount (up to 72%) compared to On-Demand pricing 
-2. Spot instance
-    1. Run fault-tolerant workloads for up to 90% off
+**~$701.36/month** or **~$0.70/customer**
+
+| Service	| Pricing | Per month	| Estimated cost | Estimated cost w 1 year commitment (reserved instance)* |
+| --- 		| --- 		| --- 		| --- 	| --- |
+| Cloudfront | $0.140/GB | 300kb * 3600 request per hour * 300 hours | $45.36 | $45.36 |
+| S3 | $0.025/GB | 1000GB | $25 | $25 |
+| ELB, Application Load balancer  | $0.0252/hour | 720 hour | $18.10 | $18.10 |
+| Nat Gateway | $0.059/hour | 720 * 2 gateway | $85 | $85 |
+| Nat Gateway - Data processed| $0.059/GB | 50GB * 2 gateway | $5.90 | $5.90 |
+| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 | $89.28 |
+| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72| $74.40 |
+| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52| $220.32 |
+| RDS storage - Multi AZ (20GB) | $0.276/GB | 500 GB | $138 |  $138 |
+| Total | | | $893.61 | $701.36 |
+
+*Standard 1 year commitment - all upfront 
 
 #### References
 1. https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf
