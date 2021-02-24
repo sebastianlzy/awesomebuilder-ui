@@ -82,22 +82,22 @@ Existing [Jenkins server](http://ec2-3-1-6-16.ap-southeast-1.compute.amazonaws.c
 
 #### Service breakdown
 
-Estimated total cost of running this workload: **~$893.61/month** or **~$0.89/customer**
+Estimated total cost of running this workload: [**~$896/month** or **~$0.89/customer**](https://calculator.s3.amazonaws.com/index.html#r=SIN&key=files/calc-2406359e088c4c192da94e0bdff10ba8f5fa1b95&v=ver20210219w3)
 
-With a 1 year commitment, you get 21.5% discount: **~$701.36/month** or **~$0.70/customer**
+With a 1 year commitment, you get ~15.5% discount: [**~$758/month** or **~$0.75/customer**](https://calculator.s3.amazonaws.com/index.html#r=SIN&key=files/calc-26b1d99319a52b834004e3071810d8fa68d1c699&v=ver20210219w3)
 
 | Service	| Pricing | Per month	| Estimated cost | Estimated cost w 1 year commitment (reserved instance)* |
 | --- 		| --- 		| --- 		| --- 	| --- |
 | Cloudfront | $0.140/GB | 300kb * 3600 request per hour * 300 hours | $45.36 | $45.36 |
 | S3 | $0.025/GB | 1000GB | $25 | $25 |
-| ELB, Application Load balancer  | $0.0252/hour | 720 hour | $18.10 | $18.10 |
+| ELB, Application Load balancer  | $0.0252/hour | 720 hour | $18.45 | $18.45 |
 | Nat Gateway | $0.059/hour | 720 * 2 gateway | $85 | $85 |
 | Nat Gateway - Data processed| $0.059/GB | 50GB * 2 gateway | $5.90 | $5.90 |
-| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 | **$89.28** |
-| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72| **$74.40** |
-| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52| **$220.32** |
+| EC2, T3.large - 2 vcpu, 8GiB  | $0.1056/hour | 720 hour * 2 instances | $152.01 | **$90.5** |
+| EC2, T3.large - 2 vcpu, 8GiB| $0.1056/hour | 300 hour * 4 instances | $126.72| $126.72 |
+| RDS compute - Multi AZ (T3.large) | $0.416/hour | 720 hour | $299.52| **$223.16** |
 | RDS storage - Multi AZ (20GB) | $0.276/GB | 500 GB | $138 |  $138 |
-| Total | | | $893.61 | $701.36 |
+| Total | | | ~$896 | ~$758 |
 
 *Standard 1 year commitment - all upfront 
 
